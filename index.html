@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Poppins:wght@400;500;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+      
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./style/output.css" />
+
+    <style>
+      .cart-footer {
+        background-color: rgba(197, 18, 18, 0.5);  
+        transition: background-color 0.2s ease;
+      }
+
+      .cart-footer:hover,
+      .cart-footer:active {
+        background-color: rgb(239, 68, 68);
+      }
+
+      .cart-footer.cart-footer-active {
+        background-color: rgb(239, 68, 68);
+      }
+
+      .cart-footer.cart-footer-active #cart-btn {
+        background-color: rgb(239, 68, 68);
+        padding: 0.4rem 1rem;
+        border-radius: 9999px;
+      }
+    </style>
+
+    <title>Cardapio - trabalho cantina</title>
+  </head>
+  <body style="padding-bottom: 6rem;">
+    <!-- Começo do header -->
+    <header class="w-full h-[420px] bg-home bg-cover bg-center relative">
+      <div class="absolute inset-0 bg-zinc-900/85"></div>
+
+      <!-- Conteúdo -->
+      <div class="relative z-20 w-full h-full flex flex-col justify-center items-center text-center">
+        <img
+          src="./assets/logo.png"
+          alt="Logo Cardapio"
+          class="w-32 h-32 rounded-full shadow-lg block mx-auto hover:scale-110 duration-200 mb-3"
+        />
+        <h1 class="text-3xl mt-4 mb-2 font-bold text-white">Restarante Alves</h1>
+
+        <span class="text-white font-medium mb-4 text-center"
+          >IFB Campus Brasília. Via L2 Norte, SGAN 610 (610 Norte) - Brasília/DF</span
+        >
+
+        <div class="bg-green-700 px-4 py-1 rounded-lg" id="date-span">
+          <span class="text-white font-medium">Seg á Sab - 08:00 as 22:00 </span>
+        </div>
+      </div>
+    </header>
+    <!-- Fim do header -->
+    <h2 data-section-title="menu" class="text-2xl md:text-3xl font-bold text-center mt-8 mb-6">Conheça nosso menu!</h2>
+
+    <!-- Barra de busca e filtros -->
+    <div class="w-full mx-auto px-4 mt-4">
+      <div class="flex gap-2 md:gap-3 bg-gray-100 rounded-lg shadow-md p-3 md:p-4 items-center flex-wrap">
+        <div class="relative w-full">
+          <i class="fa fa-search text-gray-600 text-sm md:text-base absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true"></i>
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Buscar itens..."
+            aria-label="Buscar itens do cardápio"
+            class="w-full rounded pl-8 pr-2.5 py-1.5 md:pl-9 md:pr-3 md:py-2 ring-1 ring-black/10 text-sm md:text-base"
+          />
+          <button id="clear-search-btn" type="button" aria-label="Limpar busca" class="absolute right-2 top-1/2 -translate-y-1/2 md:hidden p-1 w-6 h-6 items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 hidden">×</button>
+        </div>
+        <div class="flex items-center gap-2 w-full overflow-x-auto whitespace-nowrap">
+          <button type="button" class="filter-chip shrink-0 bg-red-500 text-white px-2.5 py-1 rounded text-xs md:text-sm" data-filter="todos" aria-pressed="true">Todos</button>
+          <button type="button" class="filter-chip shrink-0 bg-white ring-1 ring-black/10 px-2.5 py-1 rounded text-xs md:text-sm" data-filter="menu" aria-pressed="false">Menu</button>
+          <button type="button" class="filter-chip shrink-0 bg-white ring-1 ring-black/10 px-2.5 py-1 rounded text-xs md:text-sm" data-filter="bebidas" aria-pressed="false">Bebidas</button>
+          <button type="button" class="filter-chip shrink-0 bg-white ring-1 ring-black/10 px-2.5 py-1 rounded text-xs md:text-sm" data-filter="sobremesas" aria-pressed="false">Sobremesas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- inicio do menu -->
+    <div id="menu" class="w-full mx-auto px-4 mt-8">
+      <main class="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3" data-section="menu">
+        <!-- produto 1 sanduiche natural -->
+        <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-start">
+          <img
+            src="./assets/sanduiche-natural-de-frango.jpg"
+            alt="Sanduiche natural"
+            class="w-32 h-32 rounded-md object-cover hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+          />
+
+          <div class="flex-1">
+            <p class="font-bold text-xl">Sanduiche Natural</p>
+            <p class="text-sm text-gray-900 mt-2">
+              Fresco e leve, feito com pão integral, frango desfiado, legumes crocantes e um toque
+              de maionese caseira. Perfeito para uma refeição rápida e saudável.
+            </p>
+
+            <div class="flex items-center gap-4 justify-between mt-4">
+              <p class="font-bold text-xl">R$ 9.00</p>
+              <button
+                class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                data-name="Sanduiche Natural"
+                data-price="9.00"
+              >
+                <i class="fa fa-shopping-cart text-lg text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Fim produto 1 sanduiche natural -->
+
+        <!-- produto 2 sanduiche vegetariano -->
+        <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-start">
+          <img
+            src="./assets/sanduiche-vegetariano.jpg"
+            alt="Sanduiche vegetariano"
+            class="w-32 h-32 rounded-md object-cover hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+          />
+
+          <div class="flex-1">
+            <p class="font-bold text-xl">Sanduiche Vegetariano</p>
+            <p class="text-sm text-gray-900 mt-2">
+              Pão integral com legumes frescos, queijo cremoso e molho natural, leve e cheio de sabor..
+            </p>
+
+            <div class="flex items-center gap-4 justify-between mt-4">
+              <p class="font-bold text-xl">R$ 12.00</p>
+              <button
+                class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                data-name="Sanduiche Vegetariano"
+                data-price="12.00"
+              >
+                <i class="fa fa-shopping-cart text-lg text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- produto 2 sanduiche vegetariano -->
+        <!-- produto 3 pizza -->
+        <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-start">
+          <img
+            src="./assets/pedaco_de_pizza.jpg"
+            alt="Pizza"
+            class="w-32 h-32 rounded-md object-cover hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+          />
+
+          <div class="flex-1">
+            <p class="font-bold text-xl">Pizza</p>
+            <p class="text-sm text-gray-900 mt-2">
+              Massa artesanal crocante com cobertura de ingredientes selecionados, combinando sabores refinados em cada pedaço.
+            </p>
+
+            <div class="flex items-center gap-4 justify-between mt-4 w-full">
+              <p class="font-bold text-xl">R$ 7.99</p>
+              <button
+                class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                data-name="Pizza"
+                data-price="7.99"
+              >
+                <i class="fa fa-shopping-cart text-lg text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Fim produto 3 pizza -->
+        <!-- produto 4 Misto Completo -->
+        <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-start">
+          <img
+            src="./assets/misto-quente-completo.jpg"
+            alt="Misto Completo"
+            class="w-32 h-32 rounded-md object-cover hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+          />
+
+          <div class="flex-1">
+            <p class="font-bold text-xl">Misto Completo</p>
+            <p class="text-sm text-gray-900 mt-2">
+              Pão quentinho recheado com presunto, queijo derretido, ovo e tomate, trazendo sabor e sustância em cada mordida.
+            </p>
+
+            <div class="flex items-center gap-4 justify-between mt-4">
+              <p class="font-bold text-xl">R$ 5.50</p>
+              <button
+                class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                data-name="Misto Completo"
+                data-price="5.50"
+              >
+                <i class="fa fa-shopping-cart text-lg text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Fim produto 4 Misto Completo -->
+        <!-- produto 5 Queijo Quente Completo -->
+        <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-start">
+          <img
+            src="./assets/queijo_quente_-_reproducao.jpg"
+            alt="Queijo Quente Completo"
+            class="w-32 h-32 rounded-md object-cover hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+          />
+
+          <div class="flex-1 w-full">
+            <p class="font-bold text-xl">Queijo Quente Completo</p>
+            <p class="text-sm text-gray-900 mt-2">
+              Pão dourado e crocante com queijo derretido, tomate e ovo, criando uma combinação simples, quente e deliciosa.
+            </p>
+
+            <div class="flex items-center gap-4 justify-between mt-4 w-full">
+              <p class="font-bold text-xl">R$ 6.00</p>
+              <button
+                class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                data-name="Queijo Quente Completo"
+                data-price="6.00"
+              >
+                <i class="fa fa-shopping-cart text-lg text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Fim produto 5 Queijo Quente Completo -->
+        <!-- produto 6 Salgado assado -->
+        <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-start">
+          <img
+            src="./assets/Salgado assado.jpg"
+            alt="Salgado assado"
+            class="w-32 h-32 rounded-md object-cover hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+          />
+
+          <div class="flex-1">
+            <p class="font-bold text-xl">Salgado assado</p>
+            <p class="text-sm text-gray-900 mt-2">
+              Massa macia e dourada, recheada com ingredientes saborosos e assada até ficar perfeitamente leve e crocante..
+            </p>
+
+            <div class="flex items-center gap-4 justify-between mt-4 w-full">
+              <p class="font-bold text-xl">R$ 4.50</p>
+              <button
+                class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                data-name="Salgado assado"
+                data-price="4.50"
+              >
+                <i class="fa fa-shopping-cart text-lg text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Fim produto 6 -->
+      </main>
+
+      <div class="mx-auto max-w-7x1 px-2 my-2" data-title-wrapper="bebidas">
+        <h2 data-section-title="bebidas" class="font-bold text-2xl md:text-3xl">Bebidas</h2>
+      </div>
+      <!-- Grid bebidas -->
+      <div>
+        <main class="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3" id="menu" data-section="bebidas">
+          <!-- produto 1 Refrigerante lata -->
+          <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-center w-full">
+            <img
+              src="./assets/Refrigerante Lata.jpg"
+              alt="Refrigerante Lata"
+              class="w-36 h-36 object-contain block mx-auto rounded-lg bg-white p-1 hover:scale-105 transition-transform duration-300 ease-in-out flex-shrink-0"
+            />
+
+            <div class="flex-1 w-full">
+              <p class="font-bold text-xl">Refrigerante Lata</p>
+              <div class="flex items-center gap-4 justify-between mt-4">
+                <p class="font-bold text-xl">R$ 4</p>
+                <button
+                  class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                  data-name="Refrigerante Lata"
+                  data-price="4"
+                >
+                  <i class="fa fa-shopping-cart text-lg text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fim produto 1 Refrigerante lata -->
+          <!-- produto 2 Suco natural -->
+          <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-center w-full">
+            <img
+              src="./assets/Suco natural.jpg"
+              alt="Suco natural"
+              class="w-36 h-36 rounded-lg object-cover block mx-auto ring-1 ring-black/10 shadow-md hover:scale-105 transition-transform duration-300 ease-in-out flex-shrink-0"
+            />
+
+            <div class="flex-1 w-full">
+              <p class="font-bold text-xl">Suco natural</p>
+              <div class="flex items-center gap-4 justify-between mt-4">
+                <p class="font-bold text-xl">R$ 6</p>
+                <button
+                  class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                  data-name="Suco natural"
+                  data-price="6"
+                >
+                  <i class="fa fa-shopping-cart text-lg text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fim produto 2 Suco natural -->
+          <!-- produto 3 Café -->
+          <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-center w-full">
+            <img
+              src="./assets/café.jpg"
+              alt="Café"
+              class="w-36 h-36 rounded-lg object-cover block mx-auto ring-1 ring-black/10 shadow-md hover:scale-105 transition-transform duration-300 ease-in-out flex-shrink-0"
+            />
+
+            <div class="flex-1 w-full">
+              <p class="font-bold text-xl">Café</p>
+              <div class="flex items-center gap-4 justify-between mt-4">
+                <p class="font-bold text-xl">R$ 2.50</p>
+                <button
+                  class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                  data-name="Café"
+                  data-price="2.50"
+                >
+                  <i class="fa fa-shopping-cart text-lg text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fim produto 3 Café -->
+
+          
+        </main>
+      </div>
+    </div>
+    <!-- Grid bebidas fim -->
+     </main>
+
+      <div class="mx-auto max-w-7x1 px-2 my-2" data-title-wrapper="sobremesas" id="menu" >
+        <h2 data-section-title="sobremesas" class="font-bold text-2xl md:text-3xl">Sobremesas</h2>
+      </div>
+      <!-- Grid Sobremesas -->
+      <div>
+        <main class="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3" id="menu" data-section="sobremesas">
+          <!-- produto 1 Bolo Simples -->
+          <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-center w-full">
+            <img
+              src="./assets/Bolo Simples.jpg"
+              alt="Bolo Simples"
+              class="w-36 h-36 rounded-lg object-cover block mx-auto ring-1 ring-black/10 shadow-md hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+            />
+
+            <div class="flex-1 w-full">
+              <p class="font-bold text-xl">Bolo Simples</p>
+              <p class="text-sm text-gray-900 mt-2">Fatia macia com cobertura de chocolate e massa caseira.</p>
+              <div class="flex items-center gap-4 justify-between mt-4">
+                <p class="font-bold text-xl">R$ 3.00</p>
+                <button
+                  class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                  data-name="Bolo Simples"
+                  data-price="3.00"
+                >
+                  <i class="fa fa-shopping-cart text-lg text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fim produto 1 Bolo Simples -->
+          <!-- produto 2 Frutas -->
+          <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-center w-full">
+            <img
+              src="./assets/frutas-vermelhas.jpg"
+              alt="Frutas"
+              class="w-36 h-36 rounded-lg object-cover block mx-auto ring-1 ring-black/10 shadow-md hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+            />
+
+            <div class="flex-1 w-full">
+              <p class="font-bold text-xl">Frutas</p>
+              <p class="text-sm text-gray-900 mt-2">Seleção fresca de frutas vermelhas da estação.</p>
+              <div class="flex items-center gap-4 justify-between mt-4">
+                <p class="font-bold text-xl">R$ 2.00</p>
+                <button
+                  class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                  data-name="Frutas"
+                  data-price="2.00"
+                >
+                  <i class="fa fa-shopping-cart text-lg text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fim produto 2 Frutas -->
+          <!-- produto 3 Pudim -->
+          <div class="flex gap-5 bg-gray-100 rounded-lg shadow-md p-5 items-center w-full">
+            <img
+              src="./assets/pudim.jpg"
+              alt="Pudim"
+              class="w-36 h-36 rounded-lg object-cover block mx-auto ring-1 ring-black/10 shadow-md hover:scale-110 hover:-rotate-3 transition-transform duration-500 ease-in-out flex-shrink-0"
+            />
+
+            <div class="flex-1 w-full">
+              <p class="font-bold text-xl">Pudim</p>
+              <p class="text-sm text-gray-900 mt-2">Pudim cremoso com calda de caramelo.</p>
+              <div class="flex items-center gap-4 justify-between mt-4">
+                <p class="font-bold text-xl">R$ 6.00</p>
+                <button
+                  class="bg-gray-900 hover:bg-gray-800 px-5 py-2 rounded"
+                  data-name="Pudim"
+                  data-price="6.00"
+                >
+                  <i class="fa fa-shopping-cart text-lg text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Fim produto 3 Pudim -->
+
+          
+        </main>
+      </div>
+    </div>
+    <!-- Grid Sobremesas fim -->
+
+    <!-- fim do menu -->
+
+   <!-- Modal cart início -->
+<div
+  class="bg-black/55 w-full h-full fixed top-0 left-0 z-[99] items-center justify-center hidden"
+  id="cart-modal"
+>
+  <div class="bg-white p-5 md:p-6 rounded-xl w-[92%] max-w-md shadow-xl">
+    <h2 class="text-center font-bold text-2xl mb-2">Meu carrinho de compras</h2>
+
+    <!-- Conteúdo do carrinho -->
+    <div id="cart-items" class="flex flex-col justify-between mb-2">
+      <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+    </div>
+
+    <p class="font-bold mt-2">
+      Total: R$ <span id="cart-total">0.00</span>
+    </p>
+
+    <div class="flex items-center justify-between mt-4 w-full">
+      <button id="close-modal-btn" class="px-4 py-1 border rounded">
+        Fechar
+      </button>
+
+      <button
+        id="checkout-btn"
+        class="bg-green-500 text-white px-4 py-1 rounded"
+      >
+        Finalizar Compra
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal fim -->
+
+<!-- Footer do carrinho -->
+<footer
+  class="w-full bg-red-500 py-3 fixed bottom-0 left-0 right-0 flex justify-center items-center z-40 cart-footer"
+>
+  <button
+    class="flex items-center gap-2 font-bold text-white"
+    id="cart-btn"
+  >
+    (<span id="cart-count">0</span>) Veja meu carrinho
+    <i class="fa fa-cart-plus text-lg text-white"></i>
+  </button>
+</footer>
+
+  <script>
+    (function () {
+      const input = document.getElementById('search-input');
+      const chips = Array.from(document.querySelectorAll('.filter-chip'));
+      let activeCategory = 'todos';
+
+      function updateChips() {
+        chips.forEach((ch) => {
+          const isActive = ch.dataset.filter === activeCategory;
+          ch.setAttribute('aria-pressed', String(isActive));
+          ch.classList.toggle('bg-red-500', isActive);
+          ch.classList.toggle('text-white', isActive);
+          ch.classList.toggle('ring-1', !isActive);
+          ch.classList.toggle('ring-black/10', !isActive);
+          ch.classList.toggle('bg-white', !isActive);
+        });
+      }
+
+      const titles = Array.from(document.querySelectorAll('[data-section-title]'));
+      const titleWrappers = Array.from(document.querySelectorAll('[data-title-wrapper]'));
+      function updateHeadings() {
+        titles.forEach((el) => {
+          if (activeCategory === 'todos') {
+            el.classList.remove('hidden');
+          } else {
+            const cat = el.getAttribute('data-section-title');
+            el.classList.toggle('hidden', cat !== activeCategory);
+          }
+        });
+        titleWrappers.forEach((wrap) => {
+          if (activeCategory === 'todos') {
+            wrap.classList.remove('hidden');
+          } else {
+            const cat = wrap.getAttribute('data-title-wrapper');
+            wrap.classList.toggle('hidden', cat !== activeCategory);
+          }
+        });
+      }
+
+      // Anota cada card com a categoria
+      document.querySelectorAll('main.grid[data-section]').forEach((section) => {
+        const category = section.dataset.section;
+        section.querySelectorAll(':scope > div').forEach((card) => {
+          card.classList.add('menu-item');
+          card.dataset.category = category;
+        });
+      });
+
+      function applyFilter() {
+        const q = (input?.value || '').trim().toLowerCase();
+        const items = document.querySelectorAll('.menu-item');
+        items.forEach((card) => {
+          const text = card.textContent.toLowerCase();
+          const category = card.dataset.category;
+          const matchCat = activeCategory === 'todos' || category === activeCategory;
+          const matchText = q === '' || text.includes(q);
+          const visible = matchCat && matchText;
+          card.classList.toggle('hidden', !visible);
+        });
+      }
+
+      chips.forEach((ch) =>
+        ch.addEventListener('click', () => {
+          activeCategory = ch.dataset.filter;
+          updateChips();
+          applyFilter();
+          updateHeadings();
+        })
+      );
+
+      if (input) {
+        input.addEventListener('input', applyFilter);
+      }
+
+      updateChips();
+      updateHeadings();
+    })();
+  </script>
+  <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.colorDecorators": true,
+  "tailwindCSS.includeLanguages": {
+    "html": "html"
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "liveServer.settings.port": 5501
+}
